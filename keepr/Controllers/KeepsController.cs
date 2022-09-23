@@ -36,6 +36,21 @@ namespace keepr.Controllers
             }
         }
 
+    [HttpGet("{id}")]
+
+    public async Task<ActionResult<Keep>> GetOne(int id)
+    {
+        try 
+        {
+          Account user = await HttpContext.GetUserInfoAsync<Account>();
+          Keep keep = _keepsService.GetOne(id, user?.Id);
+          return Ok(keep);
+        }
+        catch (Exception e)
+        {
+           return BadRequest(e.Message);
+        }
+    }
 
 
     }

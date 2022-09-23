@@ -16,7 +16,18 @@ namespace keepr.Services
 
         internal List<Keep> GetAll(string id)
         {
-            throw new NotImplementedException();
+            return _keepsRepo.GetAll();
+        }
+
+        internal Keep GetOne(int id, string userId)
+        {
+            Keep keep = _keepsRepo.GetOne(id, userId);
+            if(keep == null){
+                throw new Exception("no keep by that id");
+            }
+            keep.Views++;
+            _keepsRepo.Update(keep);
+            return keep;
         }
 
         // Functions Start Here

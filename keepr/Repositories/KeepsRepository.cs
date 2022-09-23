@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.Data;
+using keepr.Models;
 
 namespace keepr.Repositories
 {
@@ -10,7 +13,22 @@ namespace keepr.Repositories
         {
             _db = db;
         }
-
         // Functions start here
+
+        internal List<Keep> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal Keep GetOne(int id, string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void Update(Keep keep)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
