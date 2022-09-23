@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using Dapper;
 using keepr.Models;
 
 namespace keepr.Repositories
@@ -17,13 +19,40 @@ namespace keepr.Repositories
 
         internal List<Keep> GetAll()
         {
-            throw new NotImplementedException();
+            string sql = @"
+                SELECT 
+                k.*,
+                a.*
+                FROM keeps k
+                JOIN accounts a ON k.creatorId = a.id
+                GROUP BY (k.id)
+            ";
+            return _db.Query<Keep, Profile, Keep>(sql, (keep, profile) =>
+            {
+                keep.Creator = profile;
+                return keep;
+            }).ToList();
+
         }
 
-        internal Keep GetOne(int id, string userId)
-        {
-            throw new NotImplementedException();
-        }
+        // TODO test
+        internal Keep GetOne(int id)
+        { 
+            string sql = @"
+                SELECT 
+                k.*,
+                a.*
+                FROM keeps k
+                JOIN accounts a ON k.creatorId = a.id
+                WHERE k.id = @.id
+                GROUP BY (k.id)
+            ";
+            return _db.Query<Keep, Profile, Keep>(sql, (keep, profile)=>
+            {
+                keep.Creator = profile;
+                return keep;
+            }, new { id }).FirstOrDefault();
+        }   
 
         internal void Update(Keep keep)
         {

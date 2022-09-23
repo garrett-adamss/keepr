@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using CodeWorks.Auth0Provider;
 using keepr.Models;
 using keepr.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Controllers
@@ -24,34 +25,50 @@ namespace keepr.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Keep>>> GetAll()
         {
-            try 
+            try
             {
-              Account user = await HttpContext.GetUserInfoAsync<Account>();
-              List<Keep> keeps = _keepsService.GetAll(user?.Id);
-              return Ok(keeps);
+                Account user = await HttpContext.GetUserInfoAsync<Account>();
+                List<Keep> keeps = _keepsService.GetAll(user?.Id);
+                return Ok(keeps);
             }
             catch (Exception e)
             {
-               return BadRequest(e.Message);
+                return BadRequest(e.Message);
             }
         }
 
-    [HttpGet("{id}")]
-
-    public async Task<ActionResult<Keep>> GetOne(int id)
-    {
-        try 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Keep>> GetOne(int id)
         {
-          Account user = await HttpContext.GetUserInfoAsync<Account>();
-          Keep keep = _keepsService.GetOne(id, user?.Id);
-          return Ok(keep);
+            try
+            {
+                Account user = await HttpContext.GetUserInfoAsync<Account>();
+                Keep keep = _keepsService.GetOne(id, user?.Id);
+                return Ok(keep);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
-        catch (Exception e)
-        {
-           return BadRequest(e.Message);
-        }
-    }
 
+
+        [HttpPut("{id")]
+        [Authorize]
+        public async Task<ActionResult<Keep>> Update(int id, [FromBody] Keep keepData)
+        {
+            try
+            {
+                Account user = await HttpContext.GetUserInfoAsync<Account>();
+                keepData.Id = id;
+                Keep keep = _keepsService.Update(keepData, user);
+                return Ok(keep);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
     }
 }
