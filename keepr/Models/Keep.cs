@@ -1,7 +1,7 @@
 
 namespace keepr.Models
 {
-    public class Keep : RepoItem<int>
+    public class Keep  : RepoItem<int>
     {
         public string CreatorId { get; set; }
         public string Name { get; set; }

@@ -35,6 +35,20 @@ namespace keepr.Repositories
 
         }
 
+        internal Keep Create(Keep keepData)
+        {
+            string sql = @"
+            INSERT INTO keeps
+            (creatorId, name, description, img)
+            VALUES
+            (@creatorId, @name, @description, @img);
+            SELECT LAST_INSERT_ID();
+            ";
+            int id = _db.ExecuteScalar<int>(sql, keepData);
+            keepData.Id = id;
+            return keepData;
+        }
+
         // TODO test
         internal Keep GetOne(int id)
         { 
@@ -44,7 +58,7 @@ namespace keepr.Repositories
                 a.*
                 FROM keeps k
                 JOIN accounts a ON k.creatorId = a.id
-                WHERE k.id = @.id
+                WHERE k.id = @id
                 GROUP BY (k.id)
             ";
             return _db.Query<Keep, Profile, Keep>(sql, (keep, profile)=>

@@ -47,6 +47,14 @@ VALUES
 ('632d2db050713c8a5beee118', 'Big Tree', 'I love trees!', 'https://images.unsplash.com/photo-1542544703-60b14024561f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80');
 
 
+SELECT 
+ k.*,
+ a.*
+ FROM keeps k
+ JOIN accounts a ON k.creatorId = a.id
+ GROUP BY (k.id);
+ 
+
 -- STUB Vault (collections of keeps)
 CREATE TABLE IF NOT EXISTS vaults(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

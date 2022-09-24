@@ -23,12 +23,11 @@ namespace keepr.Controllers
         // Functions Start Here
 
         [HttpGet]
-        public async Task<ActionResult<List<Keep>>> GetAll()
+        public ActionResult<List<Keep>> GetAll()
         {
             try
             {
-                Account user = await HttpContext.GetUserInfoAsync<Account>();
-                List<Keep> keeps = _keepsService.GetAll(user?.Id);
+                List<Keep> keeps = _keepsService.GetAll();
                 return Ok(keeps);
             }
             catch (Exception e)
@@ -52,23 +51,42 @@ namespace keepr.Controllers
             }
         }
 
-
-        [HttpPut("{id")]
+        [HttpPost]
         [Authorize]
-        public async Task<ActionResult<Keep>> Update(int id, [FromBody] Keep keepData)
+        public async Task<ActionResult<Keep>> Create([FromBody] Keep keepData)
         {
-            try
+            try 
             {
                 Account user = await HttpContext.GetUserInfoAsync<Account>();
-                keepData.Id = id;
-                Keep keep = _keepsService.Update(keepData, user);
+                keepData.CreatorId = user.Id;
+                Keep keep = _keepsService.Create(keepData, user);
+                keep.Creator = user;
                 return Ok(keep);
+              
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+               return BadRequest(e.Message);
             }
         }
+
+        // [HttpPut("{id")]
+        // [Authorize]
+        // public async Task<ActionResult<Keep>> Update(int id, [FromBody] Keep keepData)
+        // {
+        //     try
+        //     {
+        //         Account user = await HttpContext.GetUserInfoAsync<Account>();
+        //         keepData.Id = id;
+        //         Keep keep = _keepsService.Update(keepData, user);
+        //         return Ok(keep);
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         return BadRequest(e.Message);
+        //     }
+        // }
+
 
     }
 }

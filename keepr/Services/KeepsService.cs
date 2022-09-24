@@ -14,7 +14,7 @@ namespace keepr.Services
             _keepsRepo = keepsRepo;
         }
 
-        internal List<Keep> GetAll(string id)
+        internal List<Keep> GetAll()
         {
             return _keepsRepo.GetAll();
         }
@@ -31,20 +31,24 @@ namespace keepr.Services
             return keep;
         }
 
-        internal Keep Update(Keep update, Account user)
+        internal Keep Create(Keep keepData, Account user)
         {
-            Keep original = GetOne(update.Id, user.Id);
-            if (original.CreatorId != user.Id)
-            {
-                throw new Exception("You are not hte creator of this keep");
-            }
-            original.Name = update.Name ?? original.Name;
-            original.Description = update.Description ?? original.Description;
-            original.Img = update.Img ?? original.Img;
-            original.Views = update.Views ?? original.Views;
-            original.Kept = update.Kept ?? original.Kept;
-            
+            return _keepsRepo.Create(keepData);  
         }
+
+        // internal Keep Update(Keep update, Account user)
+        // {
+        //     Keep original = GetOne(update.Id, user.Id);
+        //     if (original.CreatorId != user.Id)
+        //     {
+        //         throw new Exception("You are not the creator of this keep");
+        //     }
+        //     original.Name = update.Name ?? original.Name;
+        //     original.Description = update.Description ?? original.Description;
+        //     original.Img = update.Img ?? original.Img;
+
+        //     return _keepsRepo.Update(original);
+        // }
 
         // Functions Start Here
     }
