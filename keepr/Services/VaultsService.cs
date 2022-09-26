@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
 
@@ -13,9 +12,14 @@ namespace keepr.Services
             _vaultsRepo = vaultsRepo;
         }
 
-        internal List<Vault> GetAll()
+        internal Vault Create(Vault newVault, Account user)
         {
-            return _vaultsRepo.GetAll();
+            return _vaultsRepo.Create(newVault);
         }
+
+        // internal List<Vault> GetAll()
+        // {
+        //     return _vaultsRepo.GetAll();
+        // }
     }
 }

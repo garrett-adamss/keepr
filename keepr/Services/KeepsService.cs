@@ -13,6 +13,10 @@ namespace keepr.Services
         {
             _keepsRepo = keepsRepo;
         }
+        internal Keep Create(Keep keepData, Account user)
+        {
+            return _keepsRepo.Create(keepData);  
+        }
 
         internal List<Keep> GetAll()
         {
@@ -26,30 +30,35 @@ namespace keepr.Services
             {
                 throw new Exception("no keep by that id");
             }
-            keep.Views++;
-            _keepsRepo.Update(keep);
+            // keep.Views++;
+            // _keepsRepo.Update(keep);
             return keep;
         }
 
-        internal Keep Create(Keep keepData, Account user)
+
+        internal Keep Update(Keep update, Account user)
         {
-            return _keepsRepo.Create(keepData);  
+            Keep original = GetOne(update.Id, user.Id);
+            if (original.CreatorId != user.Id)
+            {
+                throw new Exception($"You are not the creator of this {original.Name}");
+            }
+            original.Name = update.Name ?? original.Name;
+            original.Description = update.Description ?? original.Description;
+            original.Img = update.Img ?? original.Img;
+
+            return _keepsRepo.Update(original);
         }
 
-        // internal Keep Update(Keep update, Account user)
-        // {
-        //     Keep original = GetOne(update.Id, user.Id);
-        //     if (original.CreatorId != user.Id)
-        //     {
-        //         throw new Exception("You are not the creator of this keep");
-        //     }
-        //     original.Name = update.Name ?? original.Name;
-        //     original.Description = update.Description ?? original.Description;
-        //     original.Img = update.Img ?? original.Img;
-
-        //     return _keepsRepo.Update(original);
-        // }
-
-        // Functions Start Here
+        internal string Delete(int id, Account user)
+        {
+            Keep original = GetOne(id, user.Id);
+            if(original.CreatorId != user.Id)
+            {
+                throw new Exception($"cannot delete {original.Name}, it's not yours");
+            }
+            _keepsRepo.Delete(id);
+            return $"{original.Name} was deleted.";
+        }
     }
 }

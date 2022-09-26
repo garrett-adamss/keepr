@@ -1,7 +1,7 @@
 <template>
   <span class="navbar-text">
     <button
-      class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0"
+      class="btn selectable text-test lighten-30 text-uppercase my-2 my-lg-0"
       @click="login"
       v-if="!user.isAuthenticated"
     >
@@ -22,7 +22,7 @@
             height="40"
             class="rounded"
           />
-          <span class="mx-3 text-success lighten-30">{{ account.name || user.name }}</span>
+          <span class="mx-3 text-test lighten-30">{{ account.name || user.name }}</span>
         </div>
       </div>
       <div
@@ -80,5 +80,8 @@ export default {
 }
 .hoverable {
   cursor: pointer;
+}
+.text-test{
+  color: gray;
 }
 </style>
