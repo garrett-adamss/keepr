@@ -30,8 +30,8 @@ namespace keepr.Services
             {
                 throw new Exception("no keep by that id");
             }
-            // keep.Views++;
-            // _keepsRepo.Update(keep);
+            keep.Views++;
+            _keepsRepo.Update(keep);
             return keep;
         }
 
