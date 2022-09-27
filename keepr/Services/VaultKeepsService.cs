@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
 
@@ -29,9 +28,11 @@ namespace keepr.Services
             {
                 throw new Exception ("You are not the own of this vault");
             }
+            newVaultKeep.CreatorId = userId;
             //creates a vault keep
             int id = _vaultKeepsRepo.Create(newVaultKeep);
-            
+            //Adds one kept count
+            _keepService.AddKept(newVaultKeep);
             //gets original keep
             VaultKeepViewModel vaultKeep = _keepService.GetViewModelById(newVaultKeep.KeepId, userId);
             // attaches vaultkeep id to the keep for the view model
@@ -52,9 +53,9 @@ namespace keepr.Services
         }
 
         //Get keeps by vault id
-        internal List<VaultKeepViewModel> GetKeepsByVaultId(int vaultId)
-        {
-            return _vaultKeepsRepo.GetKeepsByVaultId(vaultId);
-        }
+        // internal List<VaultKeepViewModel> GetKeepsByVaultId(int vaultId)
+        // {
+        //     return _vaultKeepsRepo.GetKeepsByVaultId(vaultId);
+        // }
     }
 }

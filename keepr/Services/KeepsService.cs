@@ -50,6 +50,16 @@ namespace keepr.Services
             return _keepsRepo.Update(original);
         }
 
+        //Adds +1 to kept
+        internal Keep AddKept(VaultKeep newVaultKeep)
+        {
+            int keepId = newVaultKeep.KeepId;
+            Keep keep = _keepsRepo.GetOne(keepId);
+            keep.Kept++;
+            _keepsRepo.Update(keep);
+            return keep;
+        }
+
         internal VaultKeepViewModel GetViewModelById(int keepId, string userId)
         {
             VaultKeepViewModel keep = _keepsRepo.GetViewModelById(keepId);
