@@ -28,7 +28,6 @@ namespace keepr.Services
             {
                 throw new Exception ("You are not the own of this vault");
             }
-            newVaultKeep.CreatorId = userId;
             //creates a vault keep
             int id = _vaultKeepsRepo.Create(newVaultKeep);
             //Adds one kept count
