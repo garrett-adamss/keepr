@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
 
@@ -35,6 +36,24 @@ namespace keepr.Services
             original.Name = editData.Name.Length > 0 ? editData.Name : original.Name;
             original.Picture = editData.Picture.Length > 0 ? editData.Picture : original.Picture;
             return _repo.Edit(original);
+        }
+
+
+        internal Account GetOne(string id)
+        {
+            return _repo.GetById(id);
+        }
+
+        internal List<Keep> GetKeeps(string id)
+        {
+            Account profile = GetOne(id);
+            return _repo.GetKeepsByUserId(id);
+        }
+
+        internal List<Vault> GetVaults(string id)
+        {
+            Account profile = GetOne(id);
+            return _repo.GetVaultsByUserId(id);
         }
     }
 }

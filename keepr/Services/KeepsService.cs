@@ -60,7 +60,7 @@ namespace keepr.Services
             return keep;
         }
 
-        internal VaultKeepViewModel GetViewModelById(int keepId, string userId)
+        internal VaultKeepViewModel GetViewModelById(int keepId)
         {
             VaultKeepViewModel keep = _keepsRepo.GetViewModelById(keepId);
             if(keep == null)

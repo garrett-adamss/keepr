@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using keepr.Models;
 using keepr.Services;
@@ -34,7 +33,19 @@ namespace keepr.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpGet("vaults")]   
+        public async Task<ActionResult<Vault>> GetVaults()
+        {
+            try 
+            {
+              Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+              string id = userInfo.Id;
+              return Ok(_accountService.GetVaults(id));
+            }
+            catch (Exception e)
+            {
+               return BadRequest(e.Message);
+            }
+        }
     }
-
-
 }

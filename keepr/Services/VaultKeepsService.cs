@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using keepr.Models;
 using keepr.Repositories;
 
@@ -17,32 +18,31 @@ namespace keepr.Services
             _keepService = keepService;
         }
 
-
-
         //creates many to many relationship
-        internal VaultKeepViewModel Create(VaultKeep newVaultKeep, string userId)
+        internal VaultKeep Create(VaultKeep newVaultKeep, string userId)
         {
             //checks user
             Vault vault = _vaultService.GetById(newVaultKeep.VaultId);
             if(vault.CreatorId != userId)
             {
-                throw new Exception ("You are not the own of this vault");
+                throw new Exception ("You are not the owner of this vault");
             }
             //creates a vault keep
             int id = _vaultKeepsRepo.Create(newVaultKeep);
             //Adds one kept count
             _keepService.AddKept(newVaultKeep);
             //gets original keep
-            VaultKeepViewModel vaultKeep = _keepService.GetViewModelById(newVaultKeep.KeepId, userId);
+            VaultKeepViewModel vaultKeep = _keepService.GetViewModelById(newVaultKeep.KeepId);
             // attaches vaultkeep id to the keep for the view model
             vaultKeep.VaultKeepId = id;
+            newVaultKeep.Id = id;
             // returns to the user
-            return vaultKeep;
+            return newVaultKeep;
         }
         // deletes the keep from the vault
         internal string Delete(int id, Account user)
         {
-            VaultKeepViewModel original = _keepService.GetViewModelById(id, user.Id);
+            VaultKeepViewModel original = _keepService.GetViewModelById(id);
             if (original.CreatorId != user.Id){
                 throw new Exception($"You cant remove that");
             }
@@ -51,10 +51,10 @@ namespace keepr.Services
 
         }
 
-        //Get keeps by vault id
-        // internal List<VaultKeepViewModel> GetKeepsByVaultId(int vaultId)
-        // {
-        //     return _vaultKeepsRepo.GetKeepsByVaultId(vaultId);
-        // }
+        // Get keeps by vault id
+        internal List<VaultKeepViewModel> GetKeepsByVaultId(int vaultId)
+        {
+            return _vaultKeepsRepo.GetKeepsByVaultId(vaultId);
+        }
     }
 }
