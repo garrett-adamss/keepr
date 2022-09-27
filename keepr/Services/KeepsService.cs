@@ -50,6 +50,16 @@ namespace keepr.Services
             return _keepsRepo.Update(original);
         }
 
+        internal VaultKeepViewModel GetViewModelById(int keepId, string userId)
+        {
+            VaultKeepViewModel keep = _keepsRepo.GetViewModelById(keepId);
+            if(keep == null)
+            {
+                throw new Exception ("no vault by that id");
+            }
+            return keep;
+        }
+
         internal string Delete(int id, Account user)
         {
             Keep original = GetOne(id, user.Id);

@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS vaults(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   creatorId VARCHAR(255) NOT NULL,
   name VARCHAR(255) NOT NULL, 
-  description TEXT NOT NULL, 
+  description TEXT NOT NULL,
 
   FOREIGN KEY (creatorId) REFERENCES accounts(id)
 ) default charset utf8 COMMENT '';
@@ -75,7 +75,21 @@ VALUES
 INSERT INTO vaults
 (creatorId, name, description)
 VALUES
-('632d2db050713c8a5beee118', 'Favorite Trees', 'My favorite trees');
+('632d2db050713c8a5beee118', 'Favorite Trees', 'My favorite tree');
+
+INSERT INTO vaults
+(creatorId, name, description)
+VALUES
+('632d2db050713c8a5beee118', 'Christmas Time', 'Christmas themed');
+
+ALTER TABLE Vaults 
+ADD COLUMN isPrivate BOOLEAN NOT NULL DEFAULT false;
+
+UPDATE vaults SET 
+name = "tester",
+description = "tester",
+isPrivate = "true"
+WHERE id = "6";
 
 
 -- STUB VaultKeep (realtionship betweens vaults and keeps(many to many))

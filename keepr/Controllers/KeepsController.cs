@@ -102,5 +102,7 @@ namespace keepr.Controllers
                return BadRequest(e.Message);
             }
         }
+
+        // [HttpGet("{id}/vaults")]
     }
 }

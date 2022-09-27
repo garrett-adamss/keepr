@@ -66,6 +66,15 @@ namespace keepr.Repositories
             }, new { id }).FirstOrDefault();
         }
 
+        internal VaultKeepViewModel GetViewModelById(int id)
+        {
+            string sql = @"
+            SELECT * FROM keeps
+            WHERE id = @id;
+            ";
+            VaultKeepViewModel keep = _db.Query<VaultKeepViewModel>(sql, new { id }).FirstOrDefault();
+            return keep;
+        }
 
         internal Keep Update(Keep update)
         {   

@@ -1,4 +1,5 @@
 using System.Data;
+using System.Linq;
 using Dapper;
 using keepr.Models;
 
@@ -17,9 +18,9 @@ namespace keepr.Repositories
         {
             string sql = @"
             INSERT INTO vaults
-            (creatorId, name, description, isPrivate)
+            (creatorId, name, description)
             VALUES
-            (@creatorId, @name, @description, @isPrivate);
+            (@creatorId, @name, @description);
             SELECT LAST_INSERT_ID();
             ";
             int id = _db.ExecuteScalar<int>(sql, vaultData);
@@ -28,21 +29,52 @@ namespace keepr.Repositories
 
         }
 
-        // internal List<Vault> GetAll()
-        // {
-        //     string sql = @"
-        //     SELECT
-        //     v.*,
-        //     a.*
-        //     FROM vault v
-        //     JOIN accounts a ON v.creatorId = a.id
-        //     GROUP BY (v.id)
-        //     ";
-        //     return _db.Query<Vault, Profile, Vault>(sql, (vault, profile) =>
-        //     {
-        //         vault.Creator = profile;
-        //         return vault;
-        //     }).ToList();
-        // }
+        internal Vault GetOne(int id)
+        {
+            string sql = @"
+            SELECT 
+             v.*,
+             a.*
+             FROM vaults v
+             JOIN accounts a on v.creatorId = a.id
+             WHERE v.id = @id
+            ";
+            return _db.Query<Vault, Profile, Vault>(sql, (vault, profile)=>
+            {
+                vault.Creator = profile;
+                return vault;
+            }, new { id }).FirstOrDefault();
+        }
+
+        internal Vault Update(Vault update)
+        {
+            string sql = @"
+            UPDATE vaults SET 
+            name = @name,
+            description = @description,
+            isPrivate = @isPrivate
+            WHERE id = @id;
+            ";
+            _db.Execute(sql, update);
+            return update;
+        }
+
+        internal Vault GetById(int id)
+        {
+            string sql = @"
+            SELECT * FROM vaults
+            WHERE id = @id;
+            ";
+            Vault vault = _db.Query<Vault>(sql, new { id }).FirstOrDefault();
+            return vault;
+        }
+
+        internal void Delete(int id)
+        {
+            string sql = @"
+                DELETE FROM vaults WHERE id = @id;
+            ";
+            _db.Execute(sql, new{ id });
+        }
     }
 }
