@@ -3,8 +3,7 @@
       <router-link class="navbar-brand" :to="{ name: 'Home' }">
           <img alt="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Los_K_Morales_Logo_2013.svg/1200px-Los_K_Morales_Logo_2013.svg.png" height="45" />
       </router-link>
-      <div class="col-5">
-          <input type="search" class="form-control" name="search" id="" for="search" aria-describedby="emailHelpId" placeholder="Search...">
+      <div class="col-5 text-center">
       </div>
       <!-- LOGIN COMPONENT HERE -->
       <Login />

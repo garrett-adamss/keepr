@@ -30,6 +30,7 @@
                             <div class="pt-2">
                                 {{ keep?.description }}
                             </div>
+                            <div class="">
                             <div class="dropdown">
                                 <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Add to Vault
@@ -39,6 +40,13 @@
                                     <li><a class="dropdown-item" href="#">Another action</a></li>
                                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                                 </ul>
+                            </div>
+                                <router-link v-if="keep" :to="{name: 'Profile', params: {id:keep?.creatorId}}">
+                                    <img data-bs-dismiss="modal" class="profile-img-modal" :src="keep?.creator.picture">
+                                </router-link>
+                                <!-- <div v-if="account.id = keep.creatorId"> -->
+                                    <i class="mdi mdi-delete" @click="deleteKeep(keep.id)"></i>
+                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
@@ -51,11 +59,38 @@
 <script>
 import { computed } from '@vue/runtime-core'
 import { AppState } from '../AppState'
+import { keepsService } from '../services/KeepsService'
+import Pop from '../utils/Pop'
+import { logger } from '../utils/Logger'
+import { useRouter } from 'vue-router'
+import { Modal } from 'bootstrap'
 export default {
+    // props: {
+    //     keep:{
+    //         type: Object,
+    //         required: true
+    //     }
+    // },
     setup() {
+        const router = useRouter();
         return {
             keep: computed(() => AppState.activeKeep),
-            profile: computed(() => AppState.account)
+
+            async deleteKeep(id){
+                try {
+                    logger.log('id', id)
+                    const yes = await Pop.confirm("Are you sure you want to delete that?")
+                    if(!yes){
+                        return
+                    }
+                    await keepsService.deleteKeep(id)
+                    Modal.getOrCreateInstance("#keepModal").hide()
+                }
+                catch (error) {
+                   logger.error(error)
+                   Pop.toast(error.message, 'error')
+                }
+            },
         }
     }
 }
@@ -67,10 +102,16 @@ export default {
     width: 600px;
     object-fit: cover;
 }
-
 .modal-sm-img {
     height: 28px;
     width: 28px;
     object-fit: cover;
+}
+.profile-img-modal { 
+    height: 80px;
+    width: 80px; 
+    border-radius: 50%; 
+    object-fit: cover;
+    filter: drop-shadow(2px 2px 5px black);
 }
 </style>

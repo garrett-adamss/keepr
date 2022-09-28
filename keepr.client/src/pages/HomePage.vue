@@ -12,6 +12,8 @@ import { keepsService } from "../services/KeepsService"
 import { AppState } from '../AppState';
 import KeepCard from '../components/KeepCard.vue';
 import Pop from '../utils/Pop';
+import { profilesService } from '../services/ProfilesService';
+import { logger } from '../utils/Logger';
 
 export default {
     name: "Home",
@@ -24,11 +26,25 @@ export default {
            logger.error(error)
         }
       }
+      async function resetActiveProfile(){
+        try {
+           if(AppState.activeProfile != null){
+            await profilesService.clearActive();
+            logger.log("active profile cleared", AppState.activeProfile)
+           }
+        }
+        catch (error) {
+           logger.error(error)
+           Pop.toast(error.message, 'error')
+        }
+      }
         onMounted(() => {
             getKeeps();
+            resetActiveProfile();
         });
         return {
-            keeps: computed(() => AppState.keeps)
+            keeps: computed(() => AppState.keeps),
+            profile: computed(() => AppState.activeProfile)
         }
     },
     components: { KeepCard }

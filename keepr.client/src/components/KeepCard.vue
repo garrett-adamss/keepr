@@ -1,11 +1,12 @@
 <template>
   <!-- style="background-image: url({{keep.img}}) -->
-  <div class="p-2 rounded bg-grey" @click="setActive()">
+  <div class="p-2 rounded bg-grey selectable" @click="setActive()">
     <img class="img-fluid" :src="keep.img" />
-      <div class="d-flex justify-content-around">
-        <h4 class=""> {{ keep.name }}</h4>
-        <h4>t</h4>
-        <!-- <img class="profile-img" :src=""> -->
+      <div class="d-flex justify-content-around align-items-center pt-2">
+        <h4 class="keep-name"> {{ keep.name }}</h4>
+        <div v-if="!profile">
+            <img class="profile-img" :src="keep.creator.picture">
+        </div>
       </div>
   </div>
   <KeepModal/>
@@ -14,35 +15,21 @@
 <script>
 import { Modal } from 'bootstrap';
 import { keepsService } from '../services/KeepsService';
-import { profilesService } from '../services/ProfilesService';
 import { logger } from '../utils/Logger';
-import { onMounted } from '@vue/runtime-core';
 import Pop from '../utils/Pop';
 import KeepModal from './KeepModal.vue';
+import { AppState } from '../AppState';
+import { computed } from '@vue/reactivity';
 export default {
     props: {
         keep: {
             type: Object,
             required: true
         },
-        // profile: {
-        //     type: Object,
-        //     required: true,
-        // }
     },
     setup(props) {
-        async function getProfile() {
-            try {
-                // await profilesService.getProfileById(route.params.id)
-            }
-            catch (error) {
-                logger.error(error);
-            }
-        }
-        onMounted(() => {
-            getProfile();
-        });
         return {
+            profile: computed(() => AppState.activeProfile),
             async setActive() {
                 try {
                     Modal.getOrCreateInstance(document.getElementById("keepModal")).toggle();
@@ -60,10 +47,18 @@ export default {
 </script>
  
 <style>
-.rounded {
+/* .rounded {
   position: relative;
-}
+} */
 .keep-name {
-  position: absolute;
+    color: whitesmoke;
+    text-shadow: 2px 2px 5px black;
+}
+.profile-img { 
+    height: 50px;
+    width: 50px; 
+    border-radius: 50%; 
+    object-fit: cover;
+    filter: drop-shadow(2px 2px 5px black);
 }
 </style>
