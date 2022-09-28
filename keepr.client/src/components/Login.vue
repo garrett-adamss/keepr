@@ -82,6 +82,6 @@ export default {
   cursor: pointer;
 }
 .text-test{
-  color: gray;
+  color: black;
 }
 </style>

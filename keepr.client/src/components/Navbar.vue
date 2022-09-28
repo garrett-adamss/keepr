@@ -1,26 +1,13 @@
 <template>
-  <nav class="navbar navbar-expand-lg nav-color px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Los_K_Morales_Logo_2013.svg/1200px-Los_K_Morales_Logo_2013.svg.png" height="45" />
+  <nav class="navbar navbar-expand-lg nav-color px-3 justify-content-between">
+      <router-link class="navbar-brand" :to="{ name: 'Home' }">
+          <img alt="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Los_K_Morales_Logo_2013.svg/1200px-Los_K_Morales_Logo_2013.svg.png" height="45" />
+      </router-link>
+      <div class="col-5">
+          <input type="search" class="form-control" name="search" id="" for="search" aria-describedby="emailHelpId" placeholder="Search...">
       </div>
-    </router-link>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarText"
-      aria-controls="navbarText"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon" />
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-
       <!-- LOGIN COMPONENT HERE -->
       <Login />
-    </div>
   </nav>
 </template>
 
@@ -37,6 +24,6 @@ export default {
     background-color: #55EFC4;;
   }
 .text-test{
-  color: gray;
+  color: black;
 }
 </style>
