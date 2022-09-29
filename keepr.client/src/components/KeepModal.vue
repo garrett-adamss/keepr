@@ -28,7 +28,7 @@
                                 <h1 class="border-bottom">{{ keep?.name }}</h1>
                             </div>
                             <div class="pt-2">{{ keep?.description }}</div>
-                            <div class="">
+                            <div class="d-flex align-items-center justify-content-between bottom-row">
                                 <div class="dropdown">
                                     <!--  -->
                                     <a class="btn btn-outline-secondary dropdown-toggle" @click="getVaults" href="#"
@@ -42,15 +42,13 @@
                                         </div>
                                     </ul>
                                 </div>
+                                <!-- <div v-if="account.id == keep.creatorId">-->
+                                <i class="mdi mdi-delete-outline" style="font-size: 50px" @click="deleteKeep(keep.id)"></i>
+                                <!-- </div> -->
                                 <router-link v-if="keep" :to="{ name: 'Profile', params: { id: keep?.creatorId } }">
                                     <img data-bs-dismiss="modal" class="profile-img-modal"
                                         :src="keep?.creator.picture" />
-                                </router-link>
-                                <div >
-                                    <!-- v-if="account.id == keep.creatorId" -->
-                                    <i class="mdi mdi-delete" @click="deleteKeep(keep.id)"></i>
-                                    <!-- </div> -->
-                                </div>
+                                </router-link>            
                             </div>
                         </div>
                     </div>
@@ -131,5 +129,8 @@ export default {
 .dropdown-menu {
     max-height: 400px;
     overflow-y: auto;
+}
+.bottom-row{
+    margin-top: 15vh;
 }
 </style>

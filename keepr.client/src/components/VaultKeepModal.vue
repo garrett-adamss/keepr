@@ -34,7 +34,7 @@
                                         :src="keep?.creator.picture" />
                                 </router-link>
                                 <div>
-                                    <button class="btn btn-outline-secondary">Remove From Vault</button>
+                                    <button class="btn btn-outline-secondary" @click="deleteVaultKeep">Remove From Vault</button>
                                 </div>
                             </div>
                         </div>
@@ -92,27 +92,5 @@ export default {
 </script>
  
 <style>
-.modal-img {
-    height: 650px;
-    width: 600px;
-    object-fit: cover;
-}
-
-.modal-sm-img {
-    height: 28px;
-    width: 28px;
-    object-fit: cover;
-}
-
-.profile-img-modal {
-    height: 80px;
-    width: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    filter: drop-shadow(2px 2px 5px black);
-}
-
-.bottom-row{
-margin-top: 10vh;
-}
+/* using styling from keep modal */
 </style>
