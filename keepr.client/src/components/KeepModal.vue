@@ -31,15 +31,21 @@
                                 {{ keep?.description }}
                             </div>
                             <div class="">
-                            <div class="dropdown">
-                                <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="dropdown"> 
+                                <!--  -->
+                                <a class="btn btn-outline-secondary dropdown-toggle" @click="getVaults" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Add to Vault
                                 </a>
-                                <ul class="dropdown-menu">
+                                <!--  -->
+                                <ul class="dropdown-menu" >
                                     <!-- v-for vaults in vault AppState, vault component will get vaults by user id and 
                                     display an <a> tags for each vault, with an @click that add's that keep to that vault
                                     <li v-for ></li> -->
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <!-- <VaultSelection :vault="v"/> -->
+                                    
+                                    <li v-for="v in vaults" :key="v.id">
+                                        <vault-selection :vaults="v"/>
+                                    </li>
                                     <li><a class="dropdown-item" href="#">Another action</a></li>
                                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                                 </ul>
@@ -60,36 +66,58 @@
 </template>
  
 <script>
-import { computed } from '@vue/runtime-core'
+import { computed, onMounted } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import { keepsService } from '../services/KeepsService'
 import Pop from '../utils/Pop'
 import { logger } from '../utils/Logger'
-import { useRouter } from 'vue-router'
 import { Modal } from 'bootstrap'
+import { vaultsService } from '../services/VaultsService'
+import VaultSelection from './VaultSelection.vue'
 export default {
     setup() {
-        const router = useRouter();
+        // async function getVaults() {
+        //         try {
+        //             await vaultsService.getVaultsByProfileId(AppState.user.id);
+        //         }
+        //         catch (error) {
+        //             logger.error(error);
+        //             Pop.toast(error.message, "error");
+        //         }
+        //     }
+        //     onMounted(() => {
+        //         getVaults();
+        //     })
         return {
             keep: computed(() => AppState.activeKeep),
-
-            async deleteKeep(id){
+            vaults: computed(() => AppState.vaults),
+            async getVaults() {
                 try {
-                    logger.log('id', id)
-                    const yes = await Pop.confirm("Are you sure you want to delete that?")
-                    if(!yes){
-                        return
-                    }
-                    await keepsService.deleteKeep(id)
-                    Modal.getOrCreateInstance("#keepModal").hide()
+                    await vaultsService.getVaultsByProfileId(AppState.user.id);
                 }
                 catch (error) {
-                   logger.error(error)
-                   Pop.toast(error.message, 'error')
+                    logger.error(error);
+                    Pop.toast(error.message, "error");
                 }
             },
-        }
-    }
+            async deleteKeep(id) {
+                try {
+                    logger.log("id", id);
+                    const yes = await Pop.confirm("Are you sure you want to delete that?");
+                    if (!yes) {
+                        return;
+                    }
+                    await keepsService.deleteKeep(id);
+                    Modal.getOrCreateInstance("#keepModal").hide();
+                }
+                catch (error) {
+                    logger.error(error);
+                    Pop.toast(error.message, "error");
+                }
+            },
+        };
+    },
+    components: { VaultSelection }
 }
 </script>
  

@@ -65,6 +65,8 @@ CREATE TABLE IF NOT EXISTS vaults(
   FOREIGN KEY (creatorId) REFERENCES accounts(id)
 ) default charset utf8 COMMENT '';
 
+ALTER TABLE vaultkeeps DROP FOREIGN KEY vaultkeeps_ibfk_2;
+
 DROP TABLE vaults;
 
 INSERT INTO vaults

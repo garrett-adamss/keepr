@@ -7,11 +7,11 @@
       <h1>{{profile?.name}}</h1>
       <!-- <h1>{{profile.id}}</h1>
       <h1>{{account.id}}</h1> -->
-      <h3>Vaults: {{}}</h3>
-      <h3>Keeps: {{}}</h3>
+      <h3>Vaults: {{vaults.length}}</h3>
+      <h3>Keeps: {{keeps.length}}</h3>
     </div>
  </div>
- <div class="row">
+ <div class="row mt-4">
    <div v-if="account.id == profile?.id">
     <h1>Vaults <i class="mdi selectable mdi-plus" data-bs-toggle="modal" data-bs-target="#newVaultModal" type="button" for="newVaultModal"></i></h1>
    </div>
@@ -21,11 +21,11 @@
   <div class="masonry">
     <!-- v-for profile vaults -->
     <div class="" v-for="v in vaults" :key="v.id">
-    
+    <VaultCard :vault="v"/>
     </div>
   </div>
  </div>
- <div class="row">
+ <div class="row mt-4">
     <div v-if="account.id == profile?.id">
       <h1>Keeps <i class="mdi selectable mdi-plus" data-bs-toggle="modal" data-bs-target="#newKeepModal" type="button" for="newKeepModal"></i></h1>
     </div>
@@ -55,6 +55,7 @@ import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
 import NewKeepModal from '../components/NewKeepModal.vue'
 import NewVaultModal from '../components/NewVaultModal.vue'
+import VaultCard from '../components/VaultCard.vue'
 export default {
     setup() {
         const route = useRoute();
@@ -89,7 +90,7 @@ export default {
         onMounted(() => {
             getActiveProfile();
             getKeeps();
-            getVaults;
+            getVaults();
         });
         return {
             account: computed(() => AppState.account),
@@ -98,7 +99,7 @@ export default {
             vaults: computed(() => AppState.vaults),
         };
     },
-    components: { NewKeepModal, NewVaultModal }
+    components: { NewKeepModal, NewVaultModal, VaultCard }
 }
 </script>
  

@@ -1,10 +1,9 @@
 <template>
     <!-- style="background-image: url({{keep.img}}) -->
     <div class="p-2 rounded bg-grey selectable">
-      <img class="img-fluid" :src="vault.img" />
+      <img class="img-fluid" src="https://re-mm-assets.s3.amazonaws.com/product_photo/46460/large_large_Poly_LightBlue_pms291up_1471509902.jpg" />
         <div class="d-flex justify-content-around align-items-center pt-2">
           <h4 class="vault-name"> {{ vault.name }}</h4>
-          <img class="profile-img" :src="vault.creator.picture">
         </div>
     </div>
   </template>
