@@ -31,7 +31,7 @@
                                 {{ keep?.description }}
                             </div>
                             <div class="">
-                            <div class="dropdown"> 
+                            <div class="dropdown" v-if="!vaultKeep"> 
                                 <!--  -->
                                 <a class="btn btn-outline-secondary dropdown-toggle" @click="getVaults" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Add to Vault
@@ -53,9 +53,15 @@
                                 <router-link v-if="keep" :to="{name: 'Profile', params: {id:keep?.creatorId}}">
                                     <img data-bs-dismiss="modal" class="profile-img-modal" :src="keep?.creator.picture">
                                 </router-link>
-                                <!-- <div v-if="account.id = keep.creatorId"> -->
-                                    <i class="mdi mdi-delete" @click="deleteKeep(keep.id)"></i>
-                                <!-- </div> -->
+                                <div v-if="!vaultKeep">
+                                    <!-- <div v-if="account.id = keep.creatorId"> -->
+                                        <i class="mdi mdi-delete" @click="deleteKeep(keep.id)"></i>
+                                        <!-- </div> -->
+                                </div>
+                                <!-- <div v-else>
+                                    <button>Remove From Vault</button>
+                                </div> -->
+
                             </div>
                         </div>
                     </div>
@@ -89,6 +95,8 @@ export default {
         //         getVaults();
         //     })
         return {
+            vaultKeep: computed(()=> AppState.vaultKeeps),
+            account: computed(() => AppState.account),
             keep: computed(() => AppState.activeKeep),
             vaults: computed(() => AppState.vaults),
             async getVaults() {
@@ -138,5 +146,9 @@ export default {
     border-radius: 50%; 
     object-fit: cover;
     filter: drop-shadow(2px 2px 5px black);
+}
+.dropdown-menu{
+    max-height: 400px;
+    overflow-y: auto;
 }
 </style>

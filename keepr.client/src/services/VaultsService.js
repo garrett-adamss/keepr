@@ -8,6 +8,17 @@ class VaultsService{
         logger.log('[vaults]', res.data)
         AppState.vaults = res.data
     }
+    async getOne(id){
+        const res = await api.get(`api/vaults/${id}`)
+        AppState.activeVault = res.data
+        logger.log('[Active Vault]', AppState.activeVault)
+    }
+    async getVaultKeeps(id){
+        logger.log(id)
+        const res = await api.get(`api/vaults/${id}/keeps`)
+        AppState.vaultKeeps = res.data
+        logger.log('[Vault Keeps]', AppState.vaultKeeps)
+    }
 
 }
 export const vaultsService = new VaultsService()

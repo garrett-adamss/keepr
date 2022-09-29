@@ -1,5 +1,5 @@
 <template>
- <a class="dropdown-item" href="#">{{vault.name}}</a>
+ <a class="dropdown-item" href="#" @click="addToVault"><p>{{vault}}</p></a>
 </template>
  
 <script>
@@ -8,7 +8,10 @@ import { AppState } from '../AppState'
 export default {
    setup(){
       return {
-        vault: computed(()=> AppState.vaults)
+        vault: computed(()=> AppState.vaults),
+        async addToVault(){
+         
+        }
       }
    }
 }

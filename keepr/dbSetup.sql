@@ -65,6 +65,9 @@ CREATE TABLE IF NOT EXISTS vaults(
   FOREIGN KEY (creatorId) REFERENCES accounts(id)
 ) default charset utf8 COMMENT '';
 
+ALTER TABLE vaults 
+ADD COLUMN isPrivate BOOLEAN NOT NULL DEFAULT false;
+
 ALTER TABLE vaultkeeps DROP FOREIGN KEY vaultkeeps_ibfk_2;
 
 DROP TABLE vaults;
@@ -83,9 +86,6 @@ INSERT INTO vaults
 (creatorId, name, description)
 VALUES
 ('632d2db050713c8a5beee118', 'Christmas Time', 'Christmas themed');
-
-ALTER TABLE Vaults 
-ADD COLUMN isPrivate BOOLEAN NOT NULL DEFAULT false;
 
 UPDATE vaults SET 
 name = "tester",
