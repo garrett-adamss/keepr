@@ -1,6 +1,6 @@
 <template>
     <!-- Modal -->
-    <div class="modal fade" id="keepModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="vaultKeepModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -29,39 +29,12 @@
                             </div>
                             <div class="pt-2">{{ keep?.description }}</div>
                             <div class="">
-                                <div class="dropdown">
-                                    <!--  -->
-                                    <a class="btn btn-outline-secondary dropdown-toggle" @click="getVaults" href="#"
-                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Add to Vault
-                                    </a>
-                                    <!--  -->
-                                    <ul class="dropdown-menu">
-                                        <!-- v-for vaults in vault AppState, vault component will get vaults by user id and 
-                                    display an <a> tags for each vault, with an @click that add's that keep to that vault
-                                    <li v-for ></li> -->
-                                        <!-- <VaultSelection :vault="v"/> -->
-
-                                        <div v-for="v in vaults" :key="v.id">
-                                            <vault-selection :vault="v" />
-                                        </div>
-                                        <li>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </li>
-                                         
-                                    </ul>
-                                </div>
                                 <router-link v-if="keep" :to="{ name: 'Profile', params: { id: keep?.creatorId } }">
                                     <img data-bs-dismiss="modal" class="profile-img-modal"
                                         :src="keep?.creator.picture" />
                                 </router-link>
-                                <div >
-                                    <!-- v-if="account.id == keep.creatorId" -->
-                                    <i class="mdi mdi-delete" @click="deleteKeep(keep.id)"></i>
-                                    <!-- </div> -->
+                                <div>
+                                    <button>Remove From Vault</button>
                                 </div>
                             </div>
                         </div>
@@ -83,6 +56,18 @@ import { vaultsService } from '../services/VaultsService'
 import VaultSelection from './VaultSelection.vue'
 export default {
     setup() {
+        // async function getVaults() {
+        //         try {
+        //             await vaultsService.getVaultsByProfileId(AppState.user.id);
+        //         }
+        //         catch (error) {
+        //             logger.error(error);
+        //             Pop.toast(error.message, "error");
+        //         }
+        //     }
+        //     onMounted(() => {
+        //         getVaults();
+        //     })
         return {
             vaultKeep: computed(() => AppState.vaultKeeps),
             account: computed(() => AppState.account),
@@ -97,21 +82,21 @@ export default {
                     Pop.toast(error.message, "error");
                 }
             },
-            async deleteKeep(id) {
-                try {
-                    logger.log("id", id);
-                    const yes = await Pop.confirm("Are you sure you want to delete that?");
-                    if (!yes) {
-                        return;
-                    }
-                    await keepsService.deleteKeep(id);
-                    Modal.getOrCreateInstance("#keepModal").hide();
-                }
-                catch (error) {
-                    logger.error(error);
-                    Pop.toast(error.message, "error");
-                }
-            },
+            // async deleteKeep(id) {     TODO Delete Vault Keep
+            //     try {
+            //         logger.log("id", id);
+            //         const yes = await Pop.confirm("Are you sure you want to delete that?");
+            //         if (!yes) {
+            //             return;
+            //         }
+            //         await keepsService.deleteKeep(id);
+            //         Modal.getOrCreateInstance("#keepModal").hide();
+            //     }
+            //     catch (error) {
+            //         logger.error(error);
+            //         Pop.toast(error.message, "error");
+            //     }
+            // },
         };
     },
     components: { VaultSelection }

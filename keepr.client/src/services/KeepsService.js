@@ -7,13 +7,11 @@ class KeepsService{
     async getKeeps(){
         const res = await api.get('api/keeps')
         AppState.keeps = res.data
-        AppState.vaultKeeps = {} //SETS vault keep null for modal
         logger.log('[keeps appstate]', AppState.keeps)
     }
     async getKeepsByProfileId(id){
         const res = await api.get(`api/profiles/${id}/keeps`)
         AppState.keeps = res.data
-        AppState.vaultKeeps = {} //SETS vault keep null for modal
         logger.log('[Keeps]', res.data)
     }
     async getOne(id){

@@ -20,7 +20,6 @@ export default {
     setup() {
       async function getKeeps(){
         try {
-          logger.log('[AppState.vaults]', AppState.vaults)
           await keepsService.getKeeps();
         }
         catch (error) {
