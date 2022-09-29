@@ -36,6 +36,9 @@
                                     Add to Vault
                                 </a>
                                 <ul class="dropdown-menu">
+                                    <!-- v-for vaults in vault AppState, vault component will get vaults by user id and 
+                                    display an <a> tags for each vault, with an @click that add's that keep to that vault
+                                    <li v-for ></li> -->
                                     <li><a class="dropdown-item" href="#">Action</a></li>
                                     <li><a class="dropdown-item" href="#">Another action</a></li>
                                     <li><a class="dropdown-item" href="#">Something else here</a></li>
@@ -65,12 +68,6 @@ import { logger } from '../utils/Logger'
 import { useRouter } from 'vue-router'
 import { Modal } from 'bootstrap'
 export default {
-    // props: {
-    //     keep:{
-    //         type: Object,
-    //         required: true
-    //     }
-    // },
     setup() {
         const router = useRouter();
         return {

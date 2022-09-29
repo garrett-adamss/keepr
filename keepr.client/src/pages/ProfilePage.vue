@@ -5,19 +5,33 @@
     <img class="col-6 profile-page-img" :src="profile?.picture" alt="Profile Picture">
     <div class="col-6">
       <h1>{{profile?.name}}</h1>
+      <!-- <h1>{{profile.id}}</h1>
+      <h1>{{account.id}}</h1> -->
       <h3>Vaults: {{}}</h3>
       <h3>Keeps: {{}}</h3>
     </div>
  </div>
  <div class="row">
-    <h1>Vaults <i class="mdi selectable mdi-plus" @click="createVault()"></i></h1>
-        <!-- v-for profile vaults -->
+   <div v-if="account.id == profile?.id">
+    <h1>Vaults <i class="mdi selectable mdi-plus" data-bs-toggle="modal" data-bs-target="#newVaultModal" type="button" for="newVaultModal"></i></h1>
+   </div>
+   <div v-else>
+    <h1>Vaults</h1>
+   </div>
+  <div class="masonry">
+    <!-- v-for profile vaults -->
     <div class="" v-for="v in vaults" :key="v.id">
     
     </div>
+  </div>
  </div>
  <div class="row">
-    <h1>Keeps <i class="mdi selectable mdi-plus" @click="createKeep()"></i></h1>
+    <div v-if="account.id == profile?.id">
+      <h1>Keeps <i class="mdi selectable mdi-plus" data-bs-toggle="modal" data-bs-target="#newKeepModal" type="button" for="newKeepModal"></i></h1>
+    </div>
+    <div v-else>
+      <h1>Keeps</h1>
+    </div>
     <div class="masonry">
         <!-- v-for profile keeps -->
       <div class="" v-for="k in keeps" :key="k.id">
@@ -26,6 +40,8 @@
     </div>
  </div>
 </div>
+<NewKeepModal/>
+<NewVaultModal/>
 </template>
  
 <script>
@@ -37,47 +53,52 @@ import { vaultsService } from '../services/VaultsService'
 import { profilesService } from '../services/ProfilesService'
 import { logger } from '../utils/Logger'
 import Pop from '../utils/Pop'
+import NewKeepModal from '../components/NewKeepModal.vue'
+import NewVaultModal from '../components/NewVaultModal.vue'
 export default {
-   setup(){
-    const route = useRoute();
-    async function getActiveProfile(){
-      try {
-          await profilesService.getProfileById(route.params.id)        
-      }
-      catch (error) {
-         logger.error(error)
-         Pop.toast(error.message, 'error')
-      }
-    }
-    async function getKeeps(){
-      try {
-         await keepsService.getKeepsByProfileId(route.params.id)
-      }
-      catch (error) {
-         logger.error(error)
-         Pop.toast(error.message, 'error')
-      }
-    }
-    async function getVaults(){
-      try {
-         await vaultsService.getVaultsByProfileId(route.params.id)
-      }
-      catch (error) {
-         logger.error(error)
-         Pop.toast(error.message, 'error')
-      }
-    }
-    onMounted(()=> {
-      getActiveProfile();
-      getKeeps();
-      getVaults
-    })
-      return {
-        profile: computed(() => AppState.activeProfile),
-        keeps: computed(() => AppState.keeps),
-        vaults: computed(() => AppState.vaults)
-      }
-   }
+    setup() {
+        const route = useRoute();
+        async function getActiveProfile() {
+            try {
+                logger.log("[account]", AppState.account)
+                await profilesService.getProfileById(route.params.id);
+            }
+            catch (error) {
+                logger.error(error);
+                Pop.toast(error.message, "error");
+            }
+        }
+        async function getKeeps() {
+            try {
+                await keepsService.getKeepsByProfileId(route.params.id);
+            }
+            catch (error) {
+                logger.error(error);
+                Pop.toast(error.message, "error");
+            }
+        }
+        async function getVaults() {
+            try {
+                await vaultsService.getVaultsByProfileId(route.params.id);
+            }
+            catch (error) {
+                logger.error(error);
+                Pop.toast(error.message, "error");
+            }
+        }
+        onMounted(() => {
+            getActiveProfile();
+            getKeeps();
+            getVaults;
+        });
+        return {
+            account: computed(() => AppState.account),
+            profile: computed(() => AppState.activeProfile),
+            keeps: computed(() => AppState.keeps),
+            vaults: computed(() => AppState.vaults),
+        };
+    },
+    components: { NewKeepModal, NewVaultModal }
 }
 </script>
  
@@ -90,7 +111,9 @@ export default {
   .profile{
     margin-top: 10vh;
     margin-left: 9vh;
+    margin-right:10vh;
   }
+ 
 
   @media only screen and (min-width: 640px){
     .masonry {
