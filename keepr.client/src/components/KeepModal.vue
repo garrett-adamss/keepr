@@ -37,21 +37,9 @@
                                     </a>
                                     <!--  -->
                                     <ul class="dropdown-menu">
-                                        <!-- v-for vaults in vault AppState, vault component will get vaults by user id and 
-                                    display an <a> tags for each vault, with an @click that add's that keep to that vault
-                                    <li v-for ></li> -->
-                                        <!-- <VaultSelection :vault="v"/> -->
-
                                         <div v-for="v in vaults" :key="v.id">
                                             <vault-selection :vault="v" />
                                         </div>
-                                        <li>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </li>
-                                         
                                     </ul>
                                 </div>
                                 <router-link v-if="keep" :to="{ name: 'Profile', params: { id: keep?.creatorId } }">
@@ -104,8 +92,9 @@ export default {
                     if (!yes) {
                         return;
                     }
-                    await keepsService.deleteKeep(id);
                     Modal.getOrCreateInstance("#keepModal").hide();
+                    await keepsService.deleteKeep(id);
+                    // Modal.getOrCreateInstance(document.getElementById("keepModal")).hide();
                 }
                 catch (error) {
                     logger.error(error);

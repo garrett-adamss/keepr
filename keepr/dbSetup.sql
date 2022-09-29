@@ -61,14 +61,10 @@ CREATE TABLE IF NOT EXISTS vaults(
   creatorId VARCHAR(255) NOT NULL,
   name VARCHAR(255) NOT NULL, 
   description TEXT NOT NULL,
+  isPrivate TINYINT NOT NULL DEFAULT 0,
 
   FOREIGN KEY (creatorId) REFERENCES accounts(id)
 ) default charset utf8 COMMENT '';
-
-ALTER TABLE vaults 
-ADD COLUMN isPrivate BOOLEAN NOT NULL DEFAULT false;
-
-ALTER TABLE vaultkeeps DROP FOREIGN KEY vaultkeeps_ibfk_2;
 
 DROP TABLE vaults;
 
@@ -103,7 +99,8 @@ CREATE TABLE IF NOT EXISTS vaultkeeps(
 
   FOREIGN KEY (creatorId) REFERENCES accounts(id),
   FOREIGN KEY (vaultId) REFERENCES vaults (id),
-  FOREIGN KEY (keepId) REFERENCES keeps (id)
+
+  FOREIGN KEY (keepId) REFERENCES keeps (id) ON DELETE CASCADE
 )default charset utf8 COMMENT '';
 
 DROP TABLE vaultkeeps;

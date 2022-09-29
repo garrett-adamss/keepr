@@ -28,13 +28,13 @@
                                 <h1 class="border-bottom">{{ keep?.name }}</h1>
                             </div>
                             <div class="pt-2">{{ keep?.description }}</div>
-                            <div class="">
+                            <div class="d-flex align-items-center justify-content-between bottom-row">
                                 <router-link v-if="keep" :to="{ name: 'Profile', params: { id: keep?.creatorId } }">
                                     <img data-bs-dismiss="modal" class="profile-img-modal"
                                         :src="keep?.creator.picture" />
                                 </router-link>
                                 <div>
-                                    <button>Remove From Vault</button>
+                                    <button class="btn btn-outline-secondary">Remove From Vault</button>
                                 </div>
                             </div>
                         </div>
@@ -56,18 +56,6 @@ import { vaultsService } from '../services/VaultsService'
 import VaultSelection from './VaultSelection.vue'
 export default {
     setup() {
-        // async function getVaults() {
-        //         try {
-        //             await vaultsService.getVaultsByProfileId(AppState.user.id);
-        //         }
-        //         catch (error) {
-        //             logger.error(error);
-        //             Pop.toast(error.message, "error");
-        //         }
-        //     }
-        //     onMounted(() => {
-        //         getVaults();
-        //     })
         return {
             vaultKeep: computed(() => AppState.vaultKeeps),
             account: computed(() => AppState.account),
@@ -82,7 +70,7 @@ export default {
                     Pop.toast(error.message, "error");
                 }
             },
-            // async deleteKeep(id) {     TODO Delete Vault Keep
+            // async deleteVaultKeep(id) {     TODO Delete Vault Keep
             //     try {
             //         logger.log("id", id);
             //         const yes = await Pop.confirm("Are you sure you want to delete that?");
@@ -124,8 +112,7 @@ export default {
     filter: drop-shadow(2px 2px 5px black);
 }
 
-.dropdown-menu {
-    max-height: 400px;
-    overflow-y: auto;
+.bottom-row{
+margin-top: 10vh;
 }
 </style>

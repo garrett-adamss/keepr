@@ -10,15 +10,15 @@
                   <h2 class="text-center">Create New Keep</h2>
                   <div class="mb-3">
                      <div class="form-floating m-2">
-                        <input v-model="editable.name" type="text" name="title" for="title" id="title" class="form-control" placeholder="Title..." aria-describedby="helpId" style="height: 60px" maxlength="150">
+                        <input v-model="editable.name" type="text" name="title" for="title" id="title" class="form-control" placeholder="Title..." aria-describedby="helpId" style="height: 60px" maxlength="150" required>
                         <label for="title" class="form-label">Title</label>
                      </div>
                      <div class="form-floating m-2">
-                        <input v-model="editable.img" type="text" name="image url" for="image url" id="img" class="form-control" placeholder="Img Url here" aria-describedby="helpId" style="height: 60px" maxlength="300">
+                        <input v-model="editable.img" type="text" name="image url" for="image url" id="img" class="form-control" placeholder="Img Url here" aria-describedby="helpId" style="height: 60px" maxlength="300" required>
                         <label for="img" class="form-label">Img Url</label>
                      </div>
                      <div class="form-floating m-2">
-                        <textarea v-model="editable.description" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" maxlength="300"></textarea>
+                        <textarea v-model="editable.description" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" maxlength="300" required></textarea>
                         <label for="floatingTextarea2">Description</label>
                      </div>
                      <button type="submit" class="btn btn-primary m-2">Create Keep</button>
@@ -52,7 +52,7 @@ export default {
                // logger.log("[route.params]", route.params) // just id
                // logger.log("[appState account]", AppState.account.id) // obj
                if(!AppState.account.id){
-                  Pop.error("You must be signed in to create a match.")
+                  Pop.error("You must be signed in to create a keep.")
                   throw new Error("You must be signed in to create a keep.");
                }else if(AppState.account.id != route.params.id){
                   Pop.error("You can only create keeps on your profile")
