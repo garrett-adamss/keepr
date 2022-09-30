@@ -53,16 +53,15 @@ export default {
       }
     }
     async function getVaultById() {
-      try {        
-        await vaultsService.getOne(route.params.id)
-        if(AppState.activeVault.isPrivate && AppState.account.id != AppState.activeVault.creatorId){
-            logger.log("GET OUT OF HERE")
-            router.push({ name: 'Home'})
-          }
+      try {
+          
+          await vaultsService.getOne(route.params.id)      
+      
       }
       catch (error) {
         logger.error(error)
         Pop.toast(error.message, 'error')
+        router.push({ name: 'Home'})
       }
     }
     onMounted(() => {

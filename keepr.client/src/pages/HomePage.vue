@@ -20,6 +20,7 @@ export default {
     setup() {
       async function getKeeps(){
         try {
+          logger.log("AppState.account", AppState.account)
           await keepsService.getKeeps();
         }
         catch (error) {
@@ -66,7 +67,6 @@ export default {
       }
     }
   }
-
   @media only screen and (max-width: 640px){
     .masonry {
       columns: 199px;

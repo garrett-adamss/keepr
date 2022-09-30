@@ -29,6 +29,7 @@
                             </div>
                             <div class="pt-2">{{ keep?.description }}</div>
                             <div class="d-flex align-items-center justify-content-between bottom-row">
+                                <div v-if="account.id">
                                 <div class="dropdown">
                                     <a class="btn btn-outline-secondary dropdown-toggle" title="Add to Vault" name="Add to Vault" @click="getVaults" href="#"
                                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,6 +40,7 @@
                                             <vault-selection :vault="v" />
                                         </div>
                                     </ul>
+                                </div>
                                 </div>
                                 <div v-if="account.id == keep?.creatorId">
                                 <i class="mdi mdi-delete-outline selectable" title="Delete" name="delete" style="font-size: 50px" @click="deleteKeep(keep.id)"></i>
