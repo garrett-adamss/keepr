@@ -2,7 +2,7 @@
     <!-- style="background-image: url({{keep.img}}) -->
 <router-link :to="{name: 'Vault', params: {id:vault.id}}">
     <!--  -->
-    <div class="p-2 rounded bg-grey selectable" @click="setActive()">
+    <div class="p-2 rounded bg-grey selectable" :title="vault.name" :name="vault.name" @click="setActive()">
       <!-- unlocked -->
       <img class="img-fluid" src="https://cdn-icons-png.flaticon.com/512/158/158599.png" />
       <!-- locked -->

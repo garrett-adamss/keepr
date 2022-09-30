@@ -37,12 +37,12 @@ namespace keepr.Controllers
         //Deletes relationship
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<ActionResult<string>> Delete(int id)
+        public async Task<ActionResult<string>> Delete(int vaultKeepId)
         {
             try 
             {
               Account user = await HttpContext.GetUserInfoAsync<Account>();
-              string message = _vaultKeepsService.Delete(id, user);
+              string message = _vaultKeepsService.Delete(vaultKeepId, user);
               return Ok(message);
             }
             catch (Exception e)

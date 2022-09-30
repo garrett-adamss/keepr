@@ -1,6 +1,6 @@
 <template>
   <!-- style="background-image: url({{keep.img}}) -->
-  <div class="p-2 rounded bg-grey selectable" @click="setActive()">
+  <div class="p-2 rounded bg-grey selectable" @click="setActive()" :title="keep.name" :name="keep.name">
     <img class="img-fluid" :src="keep.img" />
       <div class="d-flex justify-content-around align-items-center pt-2">
         <h4 class="keep-name"> {{ keep.name }}</h4>

@@ -13,7 +13,7 @@
  </div>
  <div class="row mt-4">
    <div v-if="account.id == profile?.id">
-    <h1>Vaults <i class="mdi selectable mdi-plus" data-bs-toggle="modal" data-bs-target="#newVaultModal" type="button" for="newVaultModal"></i></h1>
+    <h1>Vaults <i class="mdi selectable mdi-plus" title="Create Vault" name="Create Vault" data-bs-toggle="modal" data-bs-target="#newVaultModal" type="button" for="newVaultModal"></i></h1>
    </div>
    <div v-else>
     <h1>Vaults</h1>
@@ -27,7 +27,7 @@
  </div>
  <div class="row mt-4">
     <div v-if="account.id == profile?.id">
-      <h1>Keeps <i class="mdi selectable mdi-plus" data-bs-toggle="modal" data-bs-target="#newKeepModal" type="button" for="newKeepModal"></i></h1>
+      <h1>Keeps <i class="mdi selectable mdi-plus" title="Create Keep" name="Create Keep" data-bs-toggle="modal" data-bs-target="#newKeepModal" type="button" for="newKeepModal"></i></h1>
     </div>
     <div v-else>
       <h1>Keeps</h1>

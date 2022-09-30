@@ -1,6 +1,7 @@
 <template>
   <span class="navbar-text">
     <button
+      title="Login" name="Login"
       class="btn selectable text-test lighten-30 text-uppercase my-2 my-lg-0"
       @click="login"
       v-if="!user.isAuthenticated"
@@ -10,6 +11,7 @@
 
     <div class="dropdown my-2 my-lg-0" v-else>
       <div
+        :title="account.name || user.name" :name="account.name || user.name"
         class="dropdown-toggle selectable"
         data-bs-toggle="dropdown"
         aria-expanded="false"
@@ -30,13 +32,14 @@
         aria-labelledby="authDropdown"
       >
         <router-link v-if="account.id" :to="{name: 'Profile', params: {id:account.id}}">
-          <div class="list-group-item list-group-item-action hoverable">
+          <div class="list-group-item list-group-item-action hoverable" title="My Account" name="My Account">
             My Account
           </div>
         </router-link>
         <div
           class="list-group-item list-group-item-action hoverable text-danger"
           @click="logout"
+          title="Logout" name="Logout"
         >
           <i class="mdi mdi-logout"></i>
           logout

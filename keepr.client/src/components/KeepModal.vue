@@ -4,7 +4,7 @@
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" title="Close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -31,7 +31,7 @@
                             <div class="d-flex align-items-center justify-content-between bottom-row">
                                 <div class="dropdown">
                                     <!--  -->
-                                    <a class="btn btn-outline-secondary dropdown-toggle" @click="getVaults" href="#"
+                                    <a class="btn btn-outline-secondary dropdown-toggle" title="Add to Vault" name="Add to Vault" @click="getVaults" href="#"
                                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Add to Vault
                                     </a>
@@ -42,11 +42,11 @@
                                         </div>
                                     </ul>
                                 </div>
-                                <!-- <div v-if="account.id == keep.creatorId">-->
-                                <i class="mdi mdi-delete-outline" style="font-size: 50px" @click="deleteKeep(keep.id)"></i>
-                                <!-- </div> -->
+                                <div v-if="account.id == keep?.creatorId">
+                                <i class="mdi mdi-delete-outline selectable" title="Delete" name="delete" style="font-size: 50px" @click="deleteKeep(keep.id)"></i>
+                                </div>
                                 <router-link v-if="keep" :to="{ name: 'Profile', params: { id: keep?.creatorId } }">
-                                    <img data-bs-dismiss="modal" class="profile-img-modal"
+                                    <img data-bs-dismiss="modal" class="profile-img-modal" title="Creator" name="Creator"
                                         :src="keep?.creator.picture" />
                                 </router-link>            
                             </div>

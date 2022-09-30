@@ -25,6 +25,7 @@ class VaultsService {
         AppState.vaults = AppState.vaults.filter(v => v.id != id)
     }
     async createVault(vaultData){
+        logger.log(vaultData)
         const res = await api.post('api/vaults', vaultData)
         logger.log('[create vault]', res.data)
         AppState.vaults.push(res.data)

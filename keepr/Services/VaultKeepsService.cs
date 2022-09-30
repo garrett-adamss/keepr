@@ -40,14 +40,15 @@ namespace keepr.Services
             return newVaultKeep;
         }
         // deletes the keep from the vault
-        internal string Delete(int id, Account user)
+        internal string Delete(int vaultKeepId, Account user)
         {
-            VaultKeepViewModel original = _keepService.GetViewModelById(id);
-            if (original.CreatorId != user.Id){
-                throw new Exception($"You cant remove that");
-            }
-            _vaultKeepsRepo.Delete(id);
-            return $"keep was removed from the vault";
+            throw new Exception("I Need to think....");
+            // VaultKeepViewModel original = _keepService.GetViewModelById(vaultKeepId);
+            // if (original.CreatorId != user.Id){
+            //     throw new Exception($"You cant remove that");
+            // }
+            // _vaultKeepsRepo.Delete(vaultKeepId);
+            // return $"keep was removed from the vault";
 
         }
 

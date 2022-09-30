@@ -34,7 +34,7 @@
                                         :src="keep?.creator.picture" />
                                 </router-link>
                                 <div>
-                                    <button class="btn btn-outline-secondary" @click="deleteVaultKeep">Remove From Vault</button>
+                                    <!-- <button class="btn btn-outline-secondary" @click="deleteVaultKeep(vaultKeep)">Remove From Vault</button> -->
                                 </div>
                             </div>
                         </div>
@@ -54,6 +54,7 @@ import { logger } from '../utils/Logger'
 import { Modal } from 'bootstrap'
 import { vaultsService } from '../services/VaultsService'
 import VaultSelection from './VaultSelection.vue'
+import { vaultKeepsService } from '../services/VaultKeepsService'
 export default {
     setup() {
         return {
@@ -70,15 +71,17 @@ export default {
                     Pop.toast(error.message, "error");
                 }
             },
-            // async deleteVaultKeep(id) {     TODO Delete Vault Keep
+            // async deleteVaultKeep(vaultKeepArray) {     
             //     try {
-            //         logger.log("id", id);
-            //         const yes = await Pop.confirm("Are you sure you want to delete that?");
-            //         if (!yes) {
-            //             return;
-            //         }
-            //         await keepsService.deleteKeep(id);
-            //         Modal.getOrCreateInstance("#keepModal").hide();
+            //         logger.log("vaultKeepArray",vaultKeepArray)
+            //         logger.log("active keep",AppState.activeKeep)
+                    // const yes = await Pop.confirm("Are you sure you want to delete that?");
+                    // if (!yes) {
+                    //     return;
+                    // }
+            //         // await vaultKeepsService.removeKeep(vaultKeepArray)
+            //         // Modal.getOrCreateInstance("#vaultKeepModal").hide();
+
             //     }
             //     catch (error) {
             //         logger.error(error);

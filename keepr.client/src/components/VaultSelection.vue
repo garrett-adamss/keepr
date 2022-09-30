@@ -1,5 +1,5 @@
 <template>
- <li><a class="dropdown-item" href="#" @click="addToVault"><p>{{vault.name}}</p></a></li>
+ <li><a class="dropdown-item" href="#" :title="vault.name" :name="vault.name" @click="addToVault"><p>{{vault.name}}</p></a></li>
 </template>
  
 <script>
@@ -7,7 +7,7 @@ import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import { vaultKeepsService } from '../services/VaultKeepsService';
 import Pop from '../utils/Pop'
-import { router } from '../router';
+import { Modal } from 'bootstrap';
 export default {
    props:{
       vault:{
@@ -22,8 +22,8 @@ export default {
             logger.log("Vault Id", props.vault.id)
             logger.log("active Keep", AppState.activeKeep.id)
             await vaultKeepsService.createVaultKeep(props.vault.id, AppState.activeKeep.id)
+            // Modal.getOrCreateInstance(document.getElementById("keepModal")).toggle();
             Pop.success("Added to vault")
-            //TODO router.push({ name: 'Vault', params: { id: props.vault.id}})
          }
          catch (error) {
             logger.error(error)

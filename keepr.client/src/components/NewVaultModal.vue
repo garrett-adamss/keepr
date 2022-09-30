@@ -61,7 +61,7 @@ export default {
                 throw new Error("You can only create keeps on your vault");
                }
                editable.value.creatorId = route.params.id
-               await vaultsService.createVault(editable.vaule);
+               await vaultsService.createVault(editable.value);
                Modal.getOrCreateInstance("#newVaultModal").hide()
                Pop.success("New vault created")
             }

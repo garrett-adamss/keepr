@@ -8,9 +8,12 @@
         </div>
       </div>
       <div class="d-flex col-6 justify-content-center">
-        <button class="btn btn-lg btn-outline-secondary" @click="deleteVault">
-          Delete Vault
-        </button>
+        <div v-if="account.id == vault?.creatorId">
+          <button class="btn btn-lg btn-outline-secondary" @click="deleteVault">
+            Delete Vault
+          </button>
+        </div>
+
       </div>
     </div>
     <div v-if="vaultKeeps.length != 0">
@@ -65,6 +68,7 @@ export default {
     return {
       vaultKeeps: computed(() => AppState.vaultKeeps),
       vault: computed(() => AppState.activeVault),
+      account: computed(() => AppState.account),
       async deleteVault() {
         try {
           const check = await Pop.confirm("Are you sure you want to delete this Vault?");
