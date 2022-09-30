@@ -21,17 +21,26 @@ namespace keepr.Services
         internal Vault GetOne(int id, string userId)
         {
             Vault vault = _vaultsRepo.GetOne(id);
-            if(vault == null)
+
+            if (vault == null)
             {
-                throw new Exception($"No vault at: id = {id} ");
+                if (vault.IsPrivate == true)
+                {
+                    throw new Exception($"No vault at: id = {id} ");
+                }
+                return vault;
             }
+                if (vault.IsPrivate == true && vault.CreatorId != userId)
+                {
+                    throw new Exception("You don't have access to that vault");
+                }
             return vault;
         }
 
         internal Vault Update(Vault update, Account user)
         {
             Vault original = GetOne(update.Id, user.Id);
-            if(original.CreatorId != user.Id)
+            if (original.CreatorId != user.Id)
             {
                 throw new Exception($"Can not update {original.Name} you are not the creator");
             }
@@ -55,7 +64,7 @@ namespace keepr.Services
         internal string Delete(int id, Account user)
         {
             Vault original = GetOne(id, user.Id);
-            if(original.CreatorId != user.Id)
+            if (original.CreatorId != user.Id)
             {
                 throw new Exception($"You can't delete {original.Name}, you're not the owner");
             }

@@ -20,25 +20,7 @@ namespace keepr.Controllers
         {
             _vaultsService = vaultsService;
             _vaultKeepsService = vaultKeepsService;
-        }
-
-
-
-
-        // Functions start here
-        // [HttpGet]
-        // public ActionResult<List<Vault>> GatAll()
-        // {
-        //     try 
-        //     {
-        //       List<Vault> vault = _vaultsService.GetAll();
-        //       return Ok(vault);
-        //     }
-        //     catch (Exception e)
-        //     {
-        //        return BadRequest(e.Message);
-        //     }
-        // }        
+        }     
 
         [HttpPost]
         [Authorize]
@@ -106,11 +88,12 @@ namespace keepr.Controllers
 
         // gets keeps by the vault id
         [HttpGet("{id}/keeps")]
-        public ActionResult<List<VaultKeepViewModel>> GetKeeps(int id)
+        public async Task<ActionResult<List<VaultKeepViewModel>>> GetKeeps(int id)
         {
           try 
           {
-            List<VaultKeepViewModel> keeps = _vaultKeepsService.GetKeepsByVaultId(id);
+            Account user = await HttpContext.GetUserInfoAsync<Account>();
+            List<VaultKeepViewModel> keeps = _vaultKeepsService.GetKeepsByVaultId(id, user?.Id);
             return Ok(keeps);
           }
           catch (Exception e)

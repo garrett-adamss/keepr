@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using Dapper;
 using keepr.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Repositories
 {
@@ -16,7 +17,7 @@ namespace keepr.Repositories
         }
 
         // creates a many to many relationship  
-        internal int Create(VaultKeep newVaultKeep)
+        internal VaultKeep Create(VaultKeep newVaultKeep)
         {
             string sql = @"
                 INSERT INTO vaultkeeps
@@ -26,7 +27,8 @@ namespace keepr.Repositories
                 SELECT LAST_INSERT_ID();
             ";
             int id = _db.ExecuteScalar<int>(sql, newVaultKeep);
-            return id;
+            newVaultKeep.Id = id;
+            return newVaultKeep;
         }
         //gets keeps by vault id
         internal List<VaultKeepViewModel> GetKeepsByVaultId(int vaultId)
@@ -41,7 +43,7 @@ namespace keepr.Repositories
                 JOIN accounts a ON k.creatorId = a.id
                 WHERE vk.vaultId = @vaultId;
             ";
-            List<VaultKeepViewModel> keeps = _db.Query<VaultKeep, VaultKeepViewModel, Account, VaultKeepViewModel>(sql, (vk, k, a)=>
+            List<VaultKeepViewModel> keeps = _db.Query<VaultKeep, VaultKeepViewModel, Account, VaultKeepViewModel>(sql, (vk, k, a) =>
             {
                 k.Creator = a;
                 k.VaultKeepId = vk.Id;
@@ -49,13 +51,23 @@ namespace keepr.Repositories
             }, new { vaultId }).ToList();
             return keeps;
         }
-
-        internal void Delete(int id)
+        internal VaultKeep GetById(int id)
         {
-            string sql =@"
+            string sql = @" 
+            SELECT * FROM vaultKeeps 
+            WHERE id = @id; 
+            ";
+            VaultKeep vaultKeep = _db.Query<VaultKeep>(sql, new { id }).FirstOrDefault();
+            return vaultKeep;
+        }
+
+        internal ActionResult<string> Delete(int id)
+        {
+            string sql = @"
             DELETE FROM vaultkeeps WHERE id = @id;
             ";
             _db.Execute(sql, new { id });
+            return "deleted";
         }
-    }
+        }
 }

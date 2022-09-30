@@ -39,9 +39,9 @@ namespace keepr.Services
         }
 
 
-        internal Account GetOne(string id)
+        internal Account GetOne(string user)
         {
-            return _repo.GetById(id);
+            return _repo.GetById(user);
         }
 
         internal List<Keep> GetKeeps(string id)

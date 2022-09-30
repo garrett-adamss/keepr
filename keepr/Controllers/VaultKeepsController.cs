@@ -26,8 +26,9 @@ namespace keepr.Controllers
             {
             Account user = await HttpContext.GetUserInfoAsync<Account>();
             newVaultKeep.CreatorId = user.Id;
-            VaultKeep keep = _vaultKeepsService.Create(newVaultKeep, user.Id);
-            return Ok(keep);
+            VaultKeep vaultKeep = _vaultKeepsService.Create(newVaultKeep);
+            vaultKeep.Creator = user;
+            return Ok(vaultKeep);
             }
             catch (Exception e)
             {
@@ -37,13 +38,14 @@ namespace keepr.Controllers
         //Deletes relationship
         [HttpDelete("{id}")]
         [Authorize]
-        public async Task<ActionResult<string>> Delete(int vaultKeepId)
+        public async Task<ActionResult<string>> Delete(int id)
         {
             try 
             {
               Account user = await HttpContext.GetUserInfoAsync<Account>();
-              string message = _vaultKeepsService.Delete(vaultKeepId, user);
-              return Ok(message);
+              return _vaultKeepsService.Delete(id, user);
+            //   string message = _vaultKeepsService.Delete(vaultKeepId, user);
+            //   return Ok(message);
             }
             catch (Exception e)
             {

@@ -18,11 +18,11 @@ namespace keepr.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Account> GetOne(string id)
+        public ActionResult<Profile> GetOne(string id)
         {
             try
             {
-                Account profile = _accountService.GetOne(id);
+                Profile profile = _accountService.GetOne(id);
                 return Ok(profile);
             }
             catch (Exception e)
