@@ -111,3 +111,11 @@ VALUES
 
 
 DELETE FROM vaultkeeps WHERE id = 1;
+
+
+            SELECT
+            v.*,
+            a.*
+            FROM vaults v
+            JOIN accounts a ON v.creatorId= a.id
+            WHERE v.creatorId = @id AND v.isPrivate = "0"

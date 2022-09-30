@@ -40,7 +40,7 @@ namespace keepr.Controllers
             {
               Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
               string id = userInfo.Id;
-              return Ok(_accountService.GetVaults(id));
+              return Ok(_accountService.GetVaultsAccount(id));
             }
             catch (Exception e)
             {
