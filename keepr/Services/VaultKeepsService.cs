@@ -33,7 +33,7 @@ namespace keepr.Services
                 throw new Exception ("You are not the owner of this vault");
             }
             //Adds one kept count
-            // _keepService.AddKept(newVaultKeep);
+            _keepService.AddKept(newVaultKeep);
             return _vaultKeepsRepo.Create(newVaultKeep);
         }
         

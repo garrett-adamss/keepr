@@ -54,7 +54,7 @@ namespace keepr.Repositories
         internal VaultKeep GetById(int id)
         {
             string sql = @" 
-            SELECT * FROM vaultKeeps 
+            SELECT * FROM vaultkeeps 
             WHERE id = @id; 
             ";
             VaultKeep vaultKeep = _db.Query<VaultKeep>(sql, new { id }).FirstOrDefault();
