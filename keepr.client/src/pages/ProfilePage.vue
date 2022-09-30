@@ -123,6 +123,7 @@ export default {
       div {
         display: block;
         margin-bottom: 1em;
+        overflow: auto;
       }
     }
   }
@@ -133,6 +134,7 @@ export default {
       div {
         display: block;
         margin-bottom: 1em;
+        overflow: auto;
       }
     }
   }

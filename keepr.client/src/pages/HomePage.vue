@@ -58,19 +58,24 @@ export default {
       column-gap: 1em;
       margin-left: 6vh;
       margin-right: 6vh;
+      // margin-bottom: 10vh;
       div {
         display: block;
         margin-bottom: 1em;
+        overflow: auto;
       }
     }
   }
+
   @media only screen and (max-width: 640px){
     .masonry {
       columns: 199px;
       column-gap: 1em;
+      margin-bottom: 10vh;
       div {
         display: block;
         margin-bottom: 1em;
+        overflow: auto;
       }
     }
   }

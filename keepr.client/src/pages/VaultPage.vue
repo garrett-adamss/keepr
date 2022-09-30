@@ -53,8 +53,12 @@ export default {
       }
     }
     async function getVaultById() {
-      try {
+      try {        
         await vaultsService.getOne(route.params.id)
+        if(AppState.activeVault.isPrivate && AppState.account.id != AppState.activeVault.creatorId){
+            logger.log("GET OUT OF HERE")
+            router.push({ name: 'Home'})
+          }
       }
       catch (error) {
         logger.error(error)
@@ -106,6 +110,7 @@ export default {
     div {
       display: block;
       margin-bottom: 1em;
+      overflow: auto;
     }
   }
 }
@@ -116,6 +121,7 @@ export default {
     div {
       display: block;
       margin-bottom: 1em;
+      overflow: auto;
     }
   }
 }

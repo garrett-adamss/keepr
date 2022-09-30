@@ -7,7 +7,6 @@ import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import { vaultKeepsService } from '../services/VaultKeepsService';
 import Pop from '../utils/Pop'
-import { Modal } from 'bootstrap';
 export default {
    props:{
       vault:{

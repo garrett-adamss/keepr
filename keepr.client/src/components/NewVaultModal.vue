@@ -18,7 +18,7 @@
                         <label for="floatingTextarea2">Description</label>
                      </div>
                      <div class="form-check m-2 ms-3">
-                         <input v-model="editable.private" class="form-check-input" type="checkbox" value="" id="private">
+                         <input v-model="editable.isPrivate" class="form-check-input" type="checkbox" value="" id="private">
                          <label class="form-check-label" for="private" aria-describedby="privateId">
                              Private? 
                             </label>
@@ -52,7 +52,6 @@ export default {
         profile: computed(()=> AppState.activeProfile),
         async handleSubmit(){
             try {
-                //FIXME creates not working
                if(!AppState.account.id){
                 Pop.error("You must be signed in to create a vault.")
                 throw new Error("You must be signed in to create a vault.");

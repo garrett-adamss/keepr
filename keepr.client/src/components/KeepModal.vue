@@ -30,12 +30,10 @@
                             <div class="pt-2">{{ keep?.description }}</div>
                             <div class="d-flex align-items-center justify-content-between bottom-row">
                                 <div class="dropdown">
-                                    <!--  -->
                                     <a class="btn btn-outline-secondary dropdown-toggle" title="Add to Vault" name="Add to Vault" @click="getVaults" href="#"
                                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Add to Vault
                                     </a>
-                                    <!--  -->
                                     <ul class="dropdown-menu">
                                         <div v-for="v in vaults" :key="v.id">
                                             <vault-selection :vault="v" />
