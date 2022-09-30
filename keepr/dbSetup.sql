@@ -108,3 +108,6 @@ INSERT INTO vaultkeeps
 (creatorId, vaultId, keepId)
 VALUES
 ('6307add455eeec07370f20c3', 1, 2);
+
+
+DELETE FROM vaultkeeps WHERE id = 1;

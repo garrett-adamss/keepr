@@ -51,15 +51,15 @@ namespace keepr.Services
             return _vaultsRepo.Update(original);
         }
 
-        internal Vault GetById(int id)
-        {
-            Vault vault = _vaultsRepo.GetById(id);
-            if (vault.IsPrivate == true || vault == null)
-            {
-                throw new Exception("sorry that vault doesnt exist");
-            }
-            return vault;
-        }
+        // internal Vault GetById(int id)
+        // {
+        //     Vault vault = _vaultsRepo.GetById(id);
+        //     if (vault.IsPrivate == true || vault == null)
+        //     {
+        //         throw new Exception("sorry that vault doesnt exist");
+        //     }
+        //     return vault;
+        // }
 
         internal string Delete(int id, Account user)
         {
