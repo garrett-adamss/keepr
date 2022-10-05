@@ -38,20 +38,6 @@ namespace keepr.Services
         }
         
 
-
-
-
-        // deletes the keep from the vault
-        // internal ActionResult<string> Delete(int id, Account user)
-        // {
-        //     VaultKeep original = _vaultKeepsRepo.GetById(id);
-        //     if (original.CreatorId != user.Id){
-        //         throw new Exception($"You cant remove that");
-        //     }
-
-        //     return _vaultKeepsRepo.Delete(id);
-            
-        // }
         internal ActionResult<string> Delete(int id, Account user) 
         { 
             VaultKeep original = _vaultKeepsRepo.GetById(id); 
