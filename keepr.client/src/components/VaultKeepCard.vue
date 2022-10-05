@@ -1,6 +1,6 @@
 <template>
-    <div class="p-2 rounded bg-grey ">
-      <img class="img-fluid selectable" :title="vaultKeep?.name" :name="vaultKeep?.name" :src="vaultKeep?.img" @click="setActive()"/>
+    <div class="p-2 ">
+      <img class="img-fluid selectable rounded" :title="vaultKeep?.name" :name="vaultKeep?.name" :src="vaultKeep?.img" @click="setActive()"/>
         <div class="d-flex justify-content-around align-items-center pt-2">
           <h4 class="vaultKeep-name"> {{ vaultKeep?.name }}</h4>
           <p class="selectable" @click="removeVaultKeep">Remove</p>

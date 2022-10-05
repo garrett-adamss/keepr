@@ -24,7 +24,7 @@
       </div>
     </div>
     <div v-else>
-      <h2 class="text-center m-5">Looks like {{ vault?.name }} is empty...</h2>
+      <h2 class="text-center empty-vault ">Looks like {{ vault?.name }} is empty...</h2>
     </div>
   </div>
 </template>
@@ -99,6 +99,9 @@ export default {
   margin-top: 10vh;
   margin-left: 9vh;
   margin-right: 10vh;
+}
+.empty-vault{ 
+  margin-top: 10vh;
 }
 @media only screen and (min-width: 640px) {
   .masonry {
