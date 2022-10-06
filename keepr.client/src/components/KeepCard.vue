@@ -47,9 +47,6 @@ export default {
 </script>
  
 <style>
-/* .rounded {
-  position: relative;
-} */
 .photo{
     position: relative;
 }
