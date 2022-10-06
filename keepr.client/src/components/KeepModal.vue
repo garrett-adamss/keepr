@@ -1,6 +1,6 @@
 <template>
     <!-- Modal -->
-    <!-- <div class="modal fade" id="keepModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="keepModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -55,8 +55,8 @@
                 </div>
             </div>
         </div>
-    </div> -->
-<div class="modal fade" id="keepModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </div>
+<!-- <div class="modal fade" id="keepModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -85,7 +85,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 </template>
  
 <script>
@@ -136,9 +136,9 @@ export default {
 </script>
  
 <style>
-.modal-body{
+/* .modal-body{
     height: 40vh;
-}
+} */
 .modal-img {
     height: 650px;
     width: 600px;
