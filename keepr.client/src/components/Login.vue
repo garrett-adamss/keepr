@@ -34,7 +34,7 @@
         <router-link v-if="account.id" :to="{name: 'Profile', params: {id:account.id}}">
           <div class="list-group-item list-group-item-action hoverable" title="My Account" name="My Account">
             My Account
-          </div>
+          </div>(())
         </router-link>
         <div
           class="list-group-item list-group-item-action hoverable text-danger"
