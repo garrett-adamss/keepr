@@ -4,7 +4,7 @@
      <img class="img-fluid rounded photo" :src="keep.img" />
       <div class="d-flex justify-content-around align-items-center pt-2 name-row">
         <h4 class="keep-name m-3"> {{ keep.name }}</h4>
-        <div v-if="!profile">
+        <div v-if="!profile" class="keep-pfp">
             <img class="profile-img m-3" :src="keep.creator.picture">
         </div>
       </div>
@@ -47,18 +47,18 @@ export default {
 </script>
  
 <style>
-/* .rounded {
-  position: relative;
-} */
 .photo{
     position: relative;
 }
-.name-row{
+.keep-pfp{
     position: absolute;
-    bottom: 1em;
-    left: 5em;
+    bottom: 0em;
+    left: 16.5em;
 }
 .keep-name {
+    position: absolute;
+    bottom: 0.5em;
+    left: 0em;
     color: whitesmoke;
     text-shadow: 2px 2px 5px black;
 }

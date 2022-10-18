@@ -56,6 +56,36 @@
             </div>
         </div>
     </div>
+<!-- <div class="modal fade" id="keepModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                    <button type="button" title="Close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6"> 
+                    TEST
+                    </div>
+                    <div class="col-6 column justify-content-center">
+                    <div>
+                        keeps
+                    </div>
+                    <div>
+                        name
+                    </div>
+                    <div>
+                        description
+                    </div>
+                    <div>
+                        delete row
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
 </template>
  
 <script>
@@ -106,6 +136,9 @@ export default {
 </script>
  
 <style>
+/* .modal-body{
+    height: 40vh;
+} */
 .modal-img {
     height: 650px;
     width: 600px;

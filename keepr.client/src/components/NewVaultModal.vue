@@ -44,7 +44,7 @@ import { logger } from '../utils/Logger'
 export default {
    setup(){
     const route = useRoute()
-    const editable = ref({})
+    const editable = ref({ isPrivate: false })
       return {
         route,
         editable,
@@ -59,6 +59,7 @@ export default {
                 Pop.error("You can only create keeps on your vault")
                 throw new Error("You can only create keeps on your vault");
                }
+               logger.log("editable.value",editable.value)
                editable.value.creatorId = route.params.id
                await vaultsService.createVault(editable.value);
                Modal.getOrCreateInstance("#newVaultModal").hide()
